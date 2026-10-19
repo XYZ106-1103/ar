@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/*
+ * 메신저 테마 토큰. 카카오톡과 같은 "구조/동선"을 따르되, 상표(로고·명칭)는 사용하지 않는다.
+ * 브랜드 컬러는 여기 한 곳에서만 바꾸면 된다.
+ */
+@theme {
+  --color-brand: #fee500;          /* 내 말풍선 / 강조 */
+  --color-brand-ink: #191919;      /* 노란 배경 위 글자 */
+  --color-chat-bg: #b2c7d9;        /* 채팅방 배경 */
+  --color-bubble-other: #ffffff;
+  --color-unread: #fa5a3c;         /* 안 읽은 메시지 배지 */
+  --color-line: #ececec;
+  --color-sub: #8e8e8e;
+  --font-sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+}
+
+html, body { height: 100%; }
+body {
+  background: #fff;
+  color: #191919;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* 모바일 주소창 높이 변화 대응 */
+.h-dvh-safe { height: 100dvh; }
+.pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+
+/* 말풍선 꼬리 */
+.bubble-tail-other::before,
+.bubble-tail-me::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 12px;
+}
+.bubble-tail-other::before {
+  left: -6px;
+  background: var(--color-bubble-other);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+.bubble-tail-me::after {
+  right: -6px;
+  background: var(--color-brand);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.scrollbar-thin::-webkit-scrollbar { width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(0,0,0,.2); border-radius: 3px; }

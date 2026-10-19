@@ -1,0 +1,24 @@
+# Render Blueprint — 대시보드 > New > Blueprint 에서 이 저장소를 선택하면 자동 생성됩니다.
+services:
+  - type: web
+    name: archive-talk
+    runtime: node
+    region: singapore          # 한국에서 가장 가까운 리전
+    plan: free                 # 유료로 바꾸면 슬립(첫 접속 지연) 없음: starter
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /login
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+      # 아래 3개는 Blueprint 생성 시 대시보드에서 직접 입력 (저장소에 커밋되지 않음)
+      # NEXT_PUBLIC_* 는 빌드 시점에 번들에 들어가므로, 값을 바꾸면 재배포(Clear cache & deploy) 필요
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
